@@ -12,7 +12,8 @@ menu_options = {
     "help": print_menu_options,
     "exit": exit_message,
     "list_users": list_users,
-    "list_user": list_user
+    "list_user": list_user,
+    "update_user":update_user
 }
 
 
