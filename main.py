@@ -1,4 +1,4 @@
-from users.functions import create_user
+from users.functions import *
 
 def print_menu_options():
     print(f"Available options: {list(menu_options.keys())}")
@@ -10,7 +10,9 @@ menu_options = {
     "create_user": create_user,
     # "delete_user": 'delete_user_function',
     "help": print_menu_options,
-    "exit": exit_message
+    "exit": exit_message,
+    "list_users": list_users,
+    "list_user": list_user
 }
 
 

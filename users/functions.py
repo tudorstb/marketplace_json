@@ -37,6 +37,7 @@ def create_user():
     print('Done creating user!')
     
 def delete_user():
+
     pass
 
 
@@ -44,12 +45,31 @@ def list_user():
     # alegeti o varianta..
     # v1 faceti in 2 pasi: prima data luati`va toate id`urile si pe urma alegeti un id, 
     # v2 alternativ puteti da ca input email-ul
-    pass
+    while True:
+        way_to_find=input("Choose how to search(name/email):")
+        if way_to_find=="name":
+            user_to_find=input("Name=")
+            break
+        elif way_to_find=="email":
+            user_to_find = input("Email=")
+            break
+        print('Did not enter a valid option')
 
+    print('Listing user...')
+    data = read_database()
+    users = data["users"]
+    for person_id, person in users.items():
+        if person[way_to_find]==user_to_find:
+            print(f'\nid={person_id}')
+            print(f'name={person["name"]}')
+            print(f'email={person["email"]}')
 def list_users():
     print('Listing users...')
-
-    pass
+    data = read_database()
+    users=data["users"]
+    for person_id, person in users.items():
+        print(person["name"])
+    print('________________')
 
 def update_user():
     pass
