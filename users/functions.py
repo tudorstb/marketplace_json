@@ -45,6 +45,7 @@ def create_user():
     }
     write_database(data)
     print('Done creating user!')
+
 def delete_user():
     pass
 
@@ -63,6 +64,7 @@ def list_user():
             print(f'\nid={person_id}')
             print(f'name={person["name"]}')
             print(f'email={person["email"]}')
+
 def list_users():
     print('Listing users...')
     data = read_database()

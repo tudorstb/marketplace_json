@@ -16,6 +16,11 @@
             "product_name": "bread",
             "category": "bakery",
             "price": 5
+        },
+        "f5406791-3fca-4985-9e1e-3d951d49b6fd": {
+            "product_name": "apple",
+            "category": "fruit",
+            "price": "2"
         }
     },
     "orders": {
