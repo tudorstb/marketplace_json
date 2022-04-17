@@ -4,11 +4,6 @@
             "name": "John Doe",
             "email": "john_doe@gmail.com",
             "register_date": "2022-04-13 20:44"
-        },
-        "2a729ad0-46e3-4a79-b9c1-41912cb6ab43": {
-            "name": "Eminem",
-            "email": "blabla@yahoo.com",
-            "register_date": "22-04-15 19:51"
         }
     },
     "products": {

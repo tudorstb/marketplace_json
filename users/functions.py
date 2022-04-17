@@ -13,30 +13,93 @@ from database.functions import read_database, write_database
 #         "email": "john_doe@gmail.com",
 #         "register_date": "2022-04-13 20:44"
 # }
+def user_in_file(way_to_find,user_to_find):
+        data = read_database()
+        users = data["users"]
+        found = False
+        for person_id, person in users.items():
+            if person[way_to_find] == user_to_find:
+                del users[person_id]
+                found = True
+                break
+
+        return found
 
 def find_user():
     while True:
         way_to_find=input("Choose how to search(name/email):")
         if way_to_find=="name":
             user_to_find=input("Name=")
-            return way_to_find,user_to_find
+            if user_in_file(way_to_find,user_to_find)==True:
+                return way_to_find,user_to_find
+            else:
+                while True:
+                    retry = input("user not found ,wish to try again?(Yes/No):")
+                    if retry.lower()=='no':
+                        return None,None
+                    elif retry.lower()=='yes':
+                        find_user()
+                    else:
+                        print('Did not entered a valid option')
         elif way_to_find=="email":
             user_to_find = input("Email=")
-            return way_to_find,user_to_find
+            if user_in_file(way_to_find, user_to_find) == True:
+                return way_to_find, user_to_find
+            else:
+                while True:
+                    retry = input("user not found ,wish to try again?(Yes/No):")
+                    if retry.lower() == 'no':
+                        return None, None
+                    elif retry.lower() == 'yes':
+                        find_user()
+                    else:
+                        print('Did not entered a valid option')
         print('Did not enter a valid option')
 
 def create_user():
     print('Creaing a user...')
     data = read_database()
     print(data)
+    users = data["users"]
 
-    user_id = str(uuid4())
-    name = input('Input your user name: ')
-    email = input('Input your user email: ') # ar trebui o verificare ca intr`adevar avem un email valid
+
+    while True:
+        name = input('Input your user name: ')
+        while True:
+            email = input('Input your user email: ') # ar trebui o verificare ca intr`adevar avem un email valid
+            if email.find('@')>-1:
+                break
+            else:
+                print("Invalid email entered")
+                retry=input('Try another one(Yes/No):')
+                if retry.lower()=='no':
+                    return None
+
+
+
+        pass_to_date=True
+        for person_id, person in users.items():
+            #todo- caut dupa ambele ??
+            if person['name'] == name and person['email']== email:
+                print("User already registerd")
+                while True:
+                    try_again=input('Try again?=')
+                    if try_again.lower()== 'no':
+                        return None
+                    elif try_again.lower()=='yes':
+                        pass_to_date=False
+                        break
+                    else:
+                        print("Did not enter a valid option")
+        if pass_to_date==True:
+            break
     now = datetime.now()
     current_time = now.strftime("%y-%m-%d %H:%M")
     register_date = current_time
+    user_id = str(uuid4())
     # register_date = datetime.......
+
+
 
     data['users'][user_id] = {
         "name": name,
@@ -47,7 +110,22 @@ def create_user():
     print('Done creating user!')
 
 def delete_user():
-    pass
+    way_to_find, user_to_find = find_user()
+    if way_to_find == None and user_to_find == None:
+        return None
+    data = read_database()
+    print('Deleting user...')
+    users = data["users"]
+    found=False
+    for person_id, person in users.items():
+        if person[way_to_find] == user_to_find:
+            del users[person_id]
+            found=True
+            break
+    if found == False:
+        print("")
+
+    write_database(data)
 
 def list_user():
     # alegeti o varianta..
@@ -55,6 +133,8 @@ def list_user():
     # v2 alternativ puteti da ca input email-ul
     way_to_find,user_to_find=find_user()
 
+    if way_to_find == None and user_to_find == None:
+        return None
 
     data = read_database()
     print('Listing user...')
@@ -64,6 +144,7 @@ def list_user():
             print(f'\nid={person_id}')
             print(f'name={person["name"]}')
             print(f'email={person["email"]}')
+            #pot sa pun break??
 
 def list_users():
     print('Listing users...')
@@ -76,7 +157,8 @@ def list_users():
 def update_user():
     option_list=['name','email','exit']
     way_to_find,user_to_find=find_user()
-
+    if way_to_find == None and user_to_find == None:
+        return None
     updated_name=''
     updated_email=''
 

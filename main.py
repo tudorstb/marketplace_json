@@ -14,6 +14,7 @@ menu_options = {
     "exit": exit_message,
     "list_users": list_users,
     "list_user": list_user,
+    "delete_user":delete_user,
     "update_user":update_user,
     "create_product":create_product,
     "delete_product":delete_product,
