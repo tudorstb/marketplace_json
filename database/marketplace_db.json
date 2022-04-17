@@ -10,12 +10,17 @@
         "2dd36a4f-9b7c-4f1f-a33b-ff44a6230645": {
             "product_name": "bread",
             "category": "bakery",
-            "price": 5
+            "price": 5.0
         },
         "f5406791-3fca-4985-9e1e-3d951d49b6fd": {
             "product_name": "apple",
             "category": "fruit",
-            "price": "2"
+            "price": 2.0
+        },
+        "30247020-cfb2-4f29-a5bb-342aa25ba0ce": {
+            "product_name": "banana",
+            "category": "fruit",
+            "price": 3.0
         }
     },
     "orders": {
