@@ -4,6 +4,26 @@
             "name": "John Doe",
             "email": "john_doe@gmail.com",
             "register_date": "2022-04-13 20:44"
+        },
+        "42e1976f-e1ba-4a29-a83d-4e797e2c4b30": {
+            "name": "Tudor Stanescu",
+            "email": "tudorstb@yahoo.com",
+            "register_date": "22-04-17 20:40"
+        },
+        "ec6d61e1-79fb-436b-89b9-c846a765a955": {
+            "name": "Briana Gampe",
+            "email": "briana.gampe@yahoo.com",
+            "register_date": "22-04-17 20:41"
+        },
+        "4d92155d-040f-4ad2-a3c1-5708e50b2c64": {
+            "name": "Andrei Dorescu",
+            "email": "doresc@gmail.com",
+            "register_date": "22-04-17 20:42"
+        },
+        "232d94df-cffb-46b4-b63a-1c745b2748de": {
+            "name": "Alin Dante",
+            "email": "danteante@gmail.com",
+            "register_date": "22-04-18 18:06"
         }
     },
     "products": {
@@ -21,6 +41,16 @@
             "product_name": "banana",
             "category": "fruit",
             "price": 3.0
+        },
+        "7993f09a-3689-4a2d-b1cd-4ab61a0218fc": {
+            "product_name": "soap",
+            "category": "cleaning",
+            "price": 5.0
+        },
+        "7ff055a1-05c7-4b4b-af0d-33f8c385b9ce": {
+            "product_name": "antibacteric gel",
+            "category": "cleaning",
+            "price": 8.0
         }
     },
     "orders": {

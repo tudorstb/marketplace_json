@@ -59,12 +59,13 @@ def find_user():
 def create_user():
     print('Creaing a user...')
     data = read_database()
-    print(data)
+
     users = data["users"]
 
 
+
     while True:
-        name = input('Input your user name: ')
+
         while True:
             email = input('Input your user email: ') # ar trebui o verificare ca intr`adevar avem un email valid
             if email.find('@')>-1:
@@ -75,15 +76,12 @@ def create_user():
                 if retry.lower()=='no':
                     return None
 
-
-
         pass_to_date=True
         for person_id, person in users.items():
-            #todo- caut dupa ambele ??
-            if person['name'] == name and person['email']== email:
+            if person['email']== email:
                 print("User already registerd")
                 while True:
-                    try_again=input('Try again?=')
+                    try_again=input('Try again?(Yes/No)=')
                     if try_again.lower()== 'no':
                         return None
                     elif try_again.lower()=='yes':
@@ -98,7 +96,7 @@ def create_user():
     register_date = current_time
     user_id = str(uuid4())
     # register_date = datetime.......
-
+    name = input('Input your user name: ')
 
 
     data['users'][user_id] = {
