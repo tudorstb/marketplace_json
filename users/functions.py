@@ -12,7 +12,7 @@ from database.functions import read_database, write_database
 def email_validation():
     while True:
         email = input('Input your user email: ')
-        if email.find('@') > -1 and email.find('.') > -1 and len(email) <= 64 and len(email) >=5 :
+        if email.find('@') > -1 and email.find('.') > -1 and len(email) <= 64 and len(email) >= 5 :
             return email
         else:
             print("Invalid email entered")
