@@ -1,10 +1,6 @@
 from datetime import datetime
 from uuid import uuid4
-
-
 from database.functions import read_database, write_database
-
-
 
 # user template:
 # {
@@ -13,6 +9,23 @@ from database.functions import read_database, write_database
 #         "email": "john_doe@gmail.com",
 #         "register_date": "2022-04-13 20:44"
 # }
+def email_validation():
+    while True:
+        email = input('Input your user email: ')
+        if email.find('@') > -1 and email.find('.') > -1 and len(email) <= 64 and len(email) >=5 :
+            return email
+        else:
+            print("Invalid email entered")
+            while True:
+                retry = input('Try another one(Yes/No):')
+                if retry.lower() == 'no':
+                    return None
+                if retry.lower() == 'yes':
+                    break
+                else:
+                    print('Did not entered a valid option')
+
+
 def user_in_file(way_to_find,user_to_find):
         data = read_database()
         users = data["users"]
@@ -42,7 +55,11 @@ def find_user():
                     else:
                         print('Did not entered a valid option')
         elif way_to_find=="email":
-            user_to_find = input("Email=")
+            user_to_find = email_validation()
+            if user_to_find == None:
+                return None, None
+
+
             if user_in_file(way_to_find, user_to_find) == True:
                 return way_to_find, user_to_find
             else:
@@ -66,16 +83,9 @@ def create_user():
 
     while True:
 
-        while True:
-            email = input('Input your user email: ') # ar trebui o verificare ca intr`adevar avem un email valid
-            if email.find('@')>-1:
-                break
-            else:
-                print("Invalid email entered")
-                retry=input('Try another one(Yes/No):')
-                if retry.lower()=='no':
-                    return None
-
+        email=email_validation()
+        if email == None:
+            return None
         pass_to_date=True
         for person_id, person in users.items():
             if person['email']== email:
@@ -167,7 +177,10 @@ def update_user():
                 updated_name=input("New name=")
                 return updated_name,updated_email
             elif update_entry.lower()=='email':
-                updated_email=input("New email=")
+
+                updated_email=email_validation()
+                if update_entry == None:
+                    return None
                 return updated_name,updated_email
             elif update_entry.lower()=='exit':
                 return updated_name,updated_email
