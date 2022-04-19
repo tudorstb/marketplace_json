@@ -12,7 +12,7 @@ def create_product():
 
         pass_to_date = True
         for product_id, product in products.items():
-            if product['product_name'] == product_name and product['category'] == category:
+            if product['product_name'] == product_name :
                 print("User already registerd")
                 while True:
                     try_again = input('Try again?(Yes/No)=')
@@ -116,20 +116,47 @@ def find_product():
         print('Did not enter a valid option')
 
 def delete_product():
-    way_to_find, product_to_find = find_product()
-    if way_to_find == None and product_to_find == None:
-        return None
     data = read_database()
-    print('Deleting product...')
-    users = data["users"]
+
+    products = data["products"]
+
+    while True:
+
+        product_name=input("product_name=")
+        pass_to_date = True
+        skip_try_again = False
+        for product_id, product in products.items():
+            if product["product_name"] == product_name:
+                print("Product found")
+                skip_try_again = True
+                break
+
+        while skip_try_again == False:
+            print('Product not found')
+            try_again = input('Try again?(Yes/No)=')
+            if try_again.lower() == 'no':
+                return None
+            elif try_again.lower() == 'yes':
+                pass_to_date = False
+
+                break
+            else:
+                print("Did not enter a valid option")
+
+        if pass_to_date == True:
+            break
+
+    print('Deleting user...')
+
     found = False
-    for person_id, person in users.items():
-        if person[way_to_find] == product_to_find:
-            del users[person_id]
+    for product_id, product in products.items():
+        if product['product_name'] == product_name:
+            del products[product_id]
             found = True
             break
     if found == False:
         print("")
+
     write_database(data)
 
 
@@ -142,9 +169,46 @@ def list_products():
     print('________________')
 
 def list_product():
-    # alegeti o varianta..
-    # v1 faceti in 2 pasi: prima data luati`va toate id`urile si pe urma alegeti un id, 
-    # v2 alternativ puteti da ca input email-ul
+    data = read_database()
+
+    products = data["products"]
+
+    while True:
+
+        product_name = input("product_name=")
+        pass_to_date = True
+        skip_try_again = False
+        for product_id, product in products.items():
+            if product["product_name"] == product_name:
+                print("Product found")
+                skip_try_again = True
+                break
+
+        while skip_try_again == False:
+            print('Product not found')
+            try_again = input('Try again?(Yes/No)=')
+            if try_again.lower() == 'no':
+                return None
+            elif try_again.lower() == 'yes':
+                pass_to_date = False
+
+                break
+            else:
+                print("Did not enter a valid option")
+
+        if pass_to_date == True:
+            break
+
+
+    print('Listing product...')
+
+    for product_id, product in products.items():
+        if product['product_name'] == product_name:
+            print(f'\nid={product_id}')
+            print(f'product_name={product["product_name"]}')
+            print(f'category={product["category"]}')
+            # pot sa pun break??
+
     pass
 
 def update_product():

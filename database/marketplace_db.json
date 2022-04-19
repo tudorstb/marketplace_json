@@ -22,11 +22,6 @@
         }
     },
     "products": {
-        "2dd36a4f-9b7c-4f1f-a33b-ff44a6230645": {
-            "product_name": "bread",
-            "category": "bakery",
-            "price": 5.0
-        },
         "f5406791-3fca-4985-9e1e-3d951d49b6fd": {
             "product_name": "apple",
             "category": "fruit",
@@ -41,16 +36,6 @@
             "product_name": "soap",
             "category": "cleaning",
             "price": 5.0
-        },
-        "7ff055a1-05c7-4b4b-af0d-33f8c385b9ce": {
-            "product_name": "antibacteric gel",
-            "category": "cleaning",
-            "price": 8.0
-        },
-        "13925ffa-8fa3-4672-be37-de80049678c5": {
-            "product_name": "bread ",
-            "category": "appa",
-            "price": 124.2
         }
     },
     "orders": {
