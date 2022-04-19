@@ -118,17 +118,48 @@ def create_user():
     print('Done creating user!')
 
 def delete_user():
-    way_to_find, user_to_find = find_user()
-    if way_to_find == None and user_to_find == None:
-        return None
     data = read_database()
-    print('Deleting user...')
+
     users = data["users"]
+
+    while True:
+
+        email=email_validation()
+        if email == None:
+            return None
+        pass_to_date=True
+        skip_try_again = False
+        for person_id, person in users.items():
+            if person['email'] == email:
+                print("User found")
+                skip_try_again=True
+                break
+
+        while skip_try_again==False:
+            print('User not found')
+            try_again = input('Try again?(Yes/No)=')
+            if try_again.lower() == 'no':
+                return None
+            elif try_again.lower() == 'yes':
+                pass_to_date = False
+
+                break
+            else:
+                print("Did not enter a valid option")
+
+        if pass_to_date==True:
+            break
+
+
+
+
+    print('Deleting user...')
+
     found=False
     for person_id, person in users.items():
-        if person[way_to_find] == user_to_find:
+        if person['email'] == email:
             del users[person_id]
-            found=True
+            found = True
             break
     if found == False:
         print("")

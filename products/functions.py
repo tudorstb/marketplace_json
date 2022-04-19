@@ -8,10 +8,11 @@ def create_product():
 
     while True:
         product_name = input('Input new product name: ')
+        category = input('Input new product category: ')
 
         pass_to_date = True
         for product_id, product in products.items():
-            if product['product_name'] == product_name:
+            if product['product_name'] == product_name and product['category'] == category:
                 print("User already registerd")
                 while True:
                     try_again = input('Try again?(Yes/No)=')
@@ -24,7 +25,7 @@ def create_product():
                         print("Did not enter a valid option")
         if pass_to_date == True:
             break
-    category = input('Input new product category: ')
+
     while True:
         price = input("Input new product price: ")
         try:
@@ -69,30 +70,69 @@ def create_product():
     write_database(data)
     print('Done creating product!')
 
+def user_in_file(way_to_find, product_to_find):
+    data = read_database()
+    users = data["products"]
+    found = False
+    for product_id, product in users.items():
+        if product[way_to_find] == product_to_find:
+            del users[product_id]
+            found = True
+            break
+
+    return found
+
 
 def find_product():
     while True:
-        way_to_find=input("Choose how to search(product_name/category):")
-        if way_to_find=="product_name":
-            user_to_find=input("product_name=")
-            return way_to_find,user_to_find
-        elif way_to_find=="category":
-            user_to_find = input("category=")
-            return way_to_find,user_to_find
+        way_to_find = input("Choose how to search(product_name/category):")
+        if way_to_find == "product_name":
+            product_to_find = input("product_name=")
+            if user_in_file(way_to_find, product_to_find) == True:
+                return way_to_find, product_to_find
+            else:
+                while True:
+                    retry = input("product not found ,wish to try again?(Yes/No):")
+                    if retry.lower() == 'no':
+                        return None, None
+                    elif retry.lower() == 'yes':
+                        find_product()
+                    else:
+                        print('Did not entered a valid option')
+        elif way_to_find == "category":
+            product_to_find=input("category=")
+
+            if user_in_file(way_to_find, product_to_find) == True:
+                return way_to_find, product_to_find
+            else:
+                while True:
+                    retry = input("product not found ,wish to try again?(Yes/No):")
+                    if retry.lower() == 'no':
+                        return None, None
+                    elif retry.lower() == 'yes':
+                        find_product()
+                    else:
+                        print('Did not entered a valid option')
         print('Did not enter a valid option')
 
-
 def delete_product():
-    # product_to_find=input('')
-    # data = read_database()
-    # print('Deleting user...')
-    # users = data["users"]
-    # for person_id, person in users.items():
-    #     if person[way_to_find] == user_to_find:
-    #         del users[person_id]
-    #         break
-    # write_database(data)
-    pass
+    way_to_find, product_to_find = find_product()
+    if way_to_find == None and product_to_find == None:
+        return None
+    data = read_database()
+    print('Deleting product...')
+    users = data["users"]
+    found = False
+    for person_id, person in users.items():
+        if person[way_to_find] == product_to_find:
+            del users[person_id]
+            found = True
+            break
+    if found == False:
+        print("")
+    write_database(data)
+
+
 def list_products():
     print('Listing products...')
     data = read_database()
