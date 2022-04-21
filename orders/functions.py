@@ -70,7 +70,11 @@ def create_order():
     data = read_database()
 
     user_order_id=find_user_for_order(data)
+    if user_order_id==None:
+        return None
     product_order_id=find_product_for_order(data)
+    if product_order_id==None:
+        return None
     order_id = str(uuid4())
 
     orders=data["orders"]
@@ -100,7 +104,6 @@ def list_orders():
     table=[]
     for order_id, order in orders.items():
         table.append([order_id,users[order['user_id']]['name'],products[order['product_id']]['product_name']])
- 
 
     print(tabulate(table,headers=["order id","user","product"]))
 

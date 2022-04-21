@@ -1,33 +1,37 @@
 from database.functions import *
 from uuid import uuid4
 
-def create_product():
-    print('Creaing a product...')
-    data = read_database()
-    products = data["products"]
-
+def find_product_by_name(products):
     while True:
-        product_name = input('Input new product name: ')
-        category = input('Input new product category: ')
 
+        product_name=input("product_name=")
         pass_to_date = True
+        skip_try_again = False
         for product_id, product in products.items():
-            if product['product_name'] == product_name :
-                print("User already registerd")
-                while True:
-                    try_again = input('Try again?(Yes/No)=')
-                    if try_again.lower() == 'no':
-                        return None
-                    elif try_again.lower() == 'yes':
-                        pass_to_date = False
-                        break
-                    else:
-                        print("Did not enter a valid option")
+            if product["product_name"] == product_name:
+                print("Product found")
+
+                skip_try_again = True
+                return product_name
+
+        while skip_try_again == False:
+            print('Product not found')
+            try_again = input('Try again?(Yes/No)=')
+            if try_again.lower() == 'no':
+                return None
+            elif try_again.lower() == 'yes':
+                pass_to_date = False
+
+                break
+            else:
+                print("Did not enter a valid option")
+
         if pass_to_date == True:
             break
 
+def create_price():
     while True:
-        price = input("Input new product price: ")
+        price = input("Input product price: ")
         try:
             price = float(price)
 
@@ -57,6 +61,36 @@ def create_product():
                         print('Did not enter a valid option')
             else:
                 break
+    return price
+
+def create_product():
+    print('Creaing a product...')
+    data = read_database()
+    products = data["products"]
+
+    while True:
+        product_name = input('Input new product name: ')
+        category = input('Input new product category: ')
+
+        pass_to_date = True
+        for product_id, product in products.items():
+            if product['product_name'] == product_name :
+                print("User already registerd")
+                while True:
+                    try_again = input('Try again?(Yes/No)=')
+                    if try_again.lower() == 'no':
+                        return None
+                    elif try_again.lower() == 'yes':
+                        pass_to_date = False
+                        break
+                    else:
+                        print("Did not enter a valid option")
+        if pass_to_date == True:
+            break
+
+    price=create_price()
+    if price == None:
+        return None
 
 
     product_id = str(uuid4())
@@ -81,7 +115,6 @@ def user_in_file(way_to_find, product_to_find):
             break
 
     return found
-
 
 def find_product():
     while True:
@@ -120,34 +153,11 @@ def delete_product():
 
     products = data["products"]
 
-    while True:
+    product_name=find_product_by_name(products)
+    if product_name == None:
+        return None
 
-        product_name=input("product_name=")
-        pass_to_date = True
-        skip_try_again = False
-        for product_id, product in products.items():
-            if product["product_name"] == product_name:
-                print("Product found")
-
-                skip_try_again = True
-                break
-
-        while skip_try_again == False:
-            print('Product not found')
-            try_again = input('Try again?(Yes/No)=')
-            if try_again.lower() == 'no':
-                return None
-            elif try_again.lower() == 'yes':
-                pass_to_date = False
-
-                break
-            else:
-                print("Did not enter a valid option")
-
-        if pass_to_date == True:
-            break
-
-    print('Deleting user...')
+    print('Deleting product...')
 
     found = False
     for product_id, product in products.items():
@@ -159,7 +169,6 @@ def delete_product():
         print("")
 
     write_database(data)
-
 
 def list_products():
     print('Listing products...')
@@ -213,4 +222,57 @@ def list_product():
     pass
 
 def update_product():
-    pass
+    option_list = ['product_name','category','price', 'exit']
+    data = read_database()
+    products = data['products']
+
+    product_original_name = find_product_by_name(products)
+    if product_original_name == None:
+        return None
+
+    updated_name = ''
+    updated_category = ''
+    updated_price=''
+    def update_option(updated_name, updated_category,updated_price):
+        while True:
+            update_entry = input('Choose what you whis to update:')
+            if update_entry.lower() == 'product_name':
+                updated_name = input("New name=")
+                return updated_name, updated_category ,updated_price
+            elif update_entry.lower() == 'category':
+                updated_category = input('New category=')
+                return updated_name, updated_category ,updated_price
+            elif update_entry.lower() == 'price':
+                updated_price =create_price()
+                if updated_price == None:
+                    return None
+                return updated_name, updated_category ,updated_price
+            elif update_entry.lower() == 'exit':
+                return updated_name, updated_category ,updated_price
+            elif update_entry.lower() == 'help':
+                print(f'options-> {option_list}')
+            else:
+                print(f'Did not enterd a valid option-> {option_list}')
+
+    updated_name, updated_category ,updated_price= update_option(updated_name, updated_category,updated_price)
+    while True:
+        update_more = input('Update something else(yes/no):').lower()
+        if update_more == 'yes':
+            updated_name, updated_category, updated_price = update_option(updated_name, updated_category, updated_price)
+        elif update_more == 'no':
+            break
+        else:
+            print('Did not entered a valid option')
+
+    print('Updating a user...')
+
+    for product_id, product in products.items():
+        if product['product_name'] == product_original_name:
+            if updated_name != '':
+                product["product_name"] = updated_name
+            elif updated_category != '':
+                product["category"] = updated_category
+            elif updated_price != '':
+                product["price"] = updated_price
+    write_database(data)
+    print('Done updating the product!')

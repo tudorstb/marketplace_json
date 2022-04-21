@@ -25,6 +25,36 @@ def email_validation():
                 else:
                     print('Did not entered a valid option')
 
+def find_email(users):
+    while True:
+
+        email=email_validation()
+        if email == None:
+            return None
+        pass_to_date=True
+        skip_try_again = False
+        for person_id, person in users.items():
+            if person['email'] == email:
+                print("User found")
+                skip_try_again=True
+                return email
+
+        while skip_try_again==False:
+            print('User not found')
+            try_again = input('Try again?(Yes/No)=')
+            if try_again.lower() == 'no':
+                return None
+            elif try_again.lower() == 'yes':
+                pass_to_date = False
+
+                break
+            else:
+                print("Did not enter a valid option")
+
+        if pass_to_date==True:
+            break
+
+
 
 def user_in_file(way_to_find,user_to_find):
         data = read_database()
@@ -122,36 +152,9 @@ def delete_user():
 
     users = data["users"]
 
-    while True:
-
-        email=email_validation()
-        if email == None:
-            return None
-        pass_to_date=True
-        skip_try_again = False
-        for person_id, person in users.items():
-            if person['email'] == email:
-                print("User found")
-                skip_try_again=True
-                break
-
-        while skip_try_again==False:
-            print('User not found')
-            try_again = input('Try again?(Yes/No)=')
-            if try_again.lower() == 'no':
-                return None
-            elif try_again.lower() == 'yes':
-                pass_to_date = False
-
-                break
-            else:
-                print("Did not enter a valid option")
-
-        if pass_to_date==True:
-            break
-
-
-
+    email=find_email(users)
+    if email==None:
+        return None
 
     print('Deleting user...')
 
@@ -195,9 +198,13 @@ def list_users():
 
 def update_user():
     option_list=['name','email','exit']
-    way_to_find,user_to_find=find_user()
-    if way_to_find == None and user_to_find == None:
+    data = read_database()
+    users=data['users']
+
+    email_of_user = find_email(users)
+    if email_of_user == None:
         return None
+
     updated_name=''
     updated_email=''
 
@@ -229,11 +236,10 @@ def update_user():
         else:
             print('Did not entered a valid option')
 
-    data = read_database()
     print('Updating a user...')
-    users = data["users"]
+
     for person_id, person in users.items():
-        if person[way_to_find] == user_to_find:
+        if person['email'] == email_of_user:
             if updated_name !='':
                 person["name"]=updated_name
             elif updated_email !='':

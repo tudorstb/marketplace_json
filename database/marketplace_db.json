@@ -10,13 +10,8 @@
             "email": "tudorstb@yahoo.com",
             "register_date": "22-04-17 20:40"
         },
-        "ec6d61e1-79fb-436b-89b9-c846a765a955": {
-            "name": "Briana Gampe",
-            "email": "briana.gampe@yahoo.com",
-            "register_date": "22-04-17 20:41"
-        },
         "232d94df-cffb-46b4-b63a-1c745b2748de": {
-            "name": "Alin Dante",
+            "name": "aaa",
             "email": "danteante@gmail.com",
             "register_date": "22-04-18 18:06"
         }
@@ -27,19 +22,18 @@
             "category": "fruit",
             "price": 2.0
         },
-        "30247020-cfb2-4f29-a5bb-342aa25ba0ce": {
-            "product_name": "banana",
-            "category": "fruit",
-            "price": 3.0
-        },
         "7993f09a-3689-4a2d-b1cd-4ab61a0218fc": {
             "product_name": "soap",
             "category": "cleaning",
-            "price": 5.0
+            "price": 44.0
+        },
+        "71b6e86a-39cb-4804-a880-f26532d58b9b": {
+            "product_name": "lapte",
+            "category": "lactate",
+            "price": 23.0
         }
     },
     "orders": {
-
         "4856048a-7e83-49f9-a039-b8800ce87b95": {
             "user_id": "42e1976f-e1ba-4a29-a83d-4e797e2c4b30",
             "product_id": "7993f09a-3689-4a2d-b1cd-4ab61a0218fc",
