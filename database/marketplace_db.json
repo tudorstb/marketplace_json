@@ -39,11 +39,7 @@
         }
     },
     "orders": {
-        "417f7f02-10fd-40e7-820b-5088f20b540d": {
-            "user_id": "b4da16a1-b23f-42c8-aff0-371539fe1553",
-            "product_id": "2dd36a4f-9b7c-4f1f-a33b-ff44a6230645",
-            "register_date": "2022-04-13 20:46"
-        },
+
         "4856048a-7e83-49f9-a039-b8800ce87b95": {
             "user_id": "42e1976f-e1ba-4a29-a83d-4e797e2c4b30",
             "product_id": "7993f09a-3689-4a2d-b1cd-4ab61a0218fc",

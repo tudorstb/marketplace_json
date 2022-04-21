@@ -21,7 +21,8 @@ menu_options = {
     "list_products":list_products,
     "list_product":list_product,
     "update_product":update_product,
-    "create_order":create_order
+    "create_order":create_order,
+    "list_orders":list_orders
 }
 
 

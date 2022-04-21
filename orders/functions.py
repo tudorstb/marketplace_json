@@ -2,6 +2,7 @@ from database.functions import *
 from users.functions import email_validation
 from uuid import uuid4
 from datetime import datetime
+from tabulate import tabulate
 def find_user_for_order(data):
     users = data["users"]
     # finding user
@@ -86,12 +87,23 @@ def create_order():
     write_database(data)
     print('Done creating order!')
 
-
 def delete_order():
     pass
 
 def list_orders():
-    pass
+    print('Listing orders...')
+    data = read_database()
+    users = data['users']
+    products = data['products']
+    orders = data["orders"]
+
+    table=[]
+    for order_id, order in orders.items():
+        table.append([order_id,users[order['user_id']]['name'],products[order['product_id']]['product_name']])
+ 
+
+    print(tabulate(table,headers=["order id","user","product"]))
+
 
 def list_order():
     # alegeti o varianta..
