@@ -1,6 +1,6 @@
 from users.functions import *
 from products.functions import *
-
+from orders.functions import *
 def print_menu_options():
     print(f"Available options: {list(menu_options.keys())}")
 
@@ -20,7 +20,8 @@ menu_options = {
     "delete_product":delete_product,
     "list_products":list_products,
     "list_product":list_product,
-    "update_product":update_product
+    "update_product":update_product,
+    "create_order":create_order
 }
 
 

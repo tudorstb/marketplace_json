@@ -11,7 +11,7 @@ from database.functions import read_database, write_database
 # }
 def email_validation():
     while True:
-        email = input('Input your user email: ')
+        email = input('Input user email: ')
         if email.find('@') > -1 and email.find('.') > -1 and len(email) <= 64 and len(email) >= 5 :
             return email
         else:
@@ -102,7 +102,7 @@ def create_user():
         if pass_to_date==True:
             break
     now = datetime.now()
-    current_time = now.strftime("%y-%m-%d %H:%M")
+    current_time = now.strftime("%Y-%m-%d %H:%M")
     register_date = current_time
     user_id = str(uuid4())
     # register_date = datetime.......

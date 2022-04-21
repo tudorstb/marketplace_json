@@ -128,6 +128,7 @@ def delete_product():
         for product_id, product in products.items():
             if product["product_name"] == product_name:
                 print("Product found")
+
                 skip_try_again = True
                 break
 
