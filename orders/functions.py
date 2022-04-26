@@ -65,6 +65,39 @@ def find_product_for_order(data):
         if pass_to_date == True:
             break
 
+def find_order(data):
+    orders = data["orders"]
+    users = data['users']
+    products = data['products']
+    while True:
+        product_id_to_find=find_product_for_order(data)
+        if product_id_to_find==None:
+            return None
+        user_id_to_find=find_user_for_order(data)
+        if user_id_to_find == None:
+            return None
+
+        ids_to_return=[]
+
+        for order_id, order in orders.items():
+            if product_id_to_find == order["product_id"] and user_id_to_find == order['user_id']:
+                ids_to_return.append(order_id)
+        if ids_to_return != []:
+            return ids_to_return
+        print('Order not found')
+        while True:
+            try_again = input('Try again?(Yes/No)=')
+            if try_again.lower() == 'no':
+                return None
+            elif try_again.lower() == 'yes':
+                break
+            else:
+                print("Did not enter a valid option")
+
+
+
+
+
 def create_order():
     print("Creating a order")
     data = read_database()
@@ -92,6 +125,11 @@ def create_order():
     print('Done creating order!')
 
 def delete_order():
+    data = read_database()
+    users = data['users']
+    products = data['products']
+
+
     pass
 
 def list_orders():
@@ -103,16 +141,38 @@ def list_orders():
 
     table=[]
     for order_id, order in orders.items():
-        table.append([order_id,users[order['user_id']]['name'],products[order['product_id']]['product_name']])
-
+        try:
+            table.append([order_id,users[order['user_id']]['name'],products[order['product_id']]['product_name']])
+        except:
+            pass
     print(tabulate(table,headers=["order id","user","product"]))
 
 
 def list_order():
-    # alegeti o varianta..
-    # v1 faceti in 2 pasi: prima data luati`va toate id`urile si pe urma alegeti un id, 
-    # v2 alternativ puteti da ca input email-ul
-    pass
+    print('Listing order...')
+    data = read_database()
+    users = data['users']
+    products = data['products']
+    orders = data["orders"]
+
+    orders_ids=find_order(data)
+    if orders_ids == None:
+        return None
+    print("Order found\n")
+
+    for id_to_find in orders_ids:
+        for order_id, order in orders.items():
+            if order_id == id_to_find:
+                print(f"user={users[order['user_id']]['name']}")
+                print(f"user_id={order['user_id']}")
+                print(f"product={products[order['product_id']]['product_name']}")
+                print(f"product_id={order['product_id']}")
+                print(f"register_date={order['register_date']}\n")
+
+
+
+
+
 
 def update_order():
     pass
