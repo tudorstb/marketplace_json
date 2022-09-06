@@ -169,10 +169,5 @@ def list_order():
                 print(f"product_id={order['product_id']}")
                 print(f"register_date={order['register_date']}\n")
 
-
-
-
-
-
 def update_order():
     pass

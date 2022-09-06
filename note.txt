@@ -3,3 +3,4 @@ verify integrity of variable entered
 if not found print- not found
 
 users--- if multiple finds
+email verify

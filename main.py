@@ -9,7 +9,6 @@ def exit_message():
 
 menu_options = {
     "create_user": create_user,
-    # "delete_user": 'delete_user_function',
     "help": print_menu_options,
     "exit": exit_message,
     "list_users": list_users,

@@ -10,9 +10,13 @@ from database.functions import read_database, write_database
 #         "register_date": "2022-04-13 20:44"
 # }
 def email_validation():
+    # EXACT un arond
+    #special ch
+    #explain error
     while True:
         email = input('Input user email: ')
-        if email.find('@') > -1 and email.find('.') > -1 and len(email) <= 64 and len(email) >= 5 :
+
+        if email.count('@') != -1 and email.find('.') > -1 and len(email) <= 64 and len(email) >= 5 :
             return email
         else:
             print("Invalid email entered")
@@ -195,7 +199,7 @@ def list_users():
     for person_id, person in users.items():
         print(person["name"])
     print('________________')
-
+#password
 def update_user():
     option_list=['name','email','exit']
     data = read_database()
